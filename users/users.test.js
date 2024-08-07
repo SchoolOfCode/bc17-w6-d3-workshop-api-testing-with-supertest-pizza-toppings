@@ -1,23 +1,21 @@
-import { test, expect } from 'vitest';
-import request from 'supertest';
+import { test, expect } from "vitest";
+import request from "supertest";
 
-import app from '../app.js';
-import { resetUsersTable } from '../db/helpers.js'
+import app from "../app.js";
+import { resetUsersTable } from "../db/helpers.js";
 
+test("Make sure GET /api/health works", async () => {
+  const response = await request(app).get("/api/health");
 
-test('Make sure GET /api/health works', async () => {
-    
-    const response = await request(app).get('/api/health');
+  expect(response.body).toEqual({
+    success: true,
+    payload: "API is running correctly",
+  });
 
-    expect(response.body).toEqual({
-        success: true,
-        payload: "API is running correctly",
-    });
-
-    expect(response.status).toEqual(200);
-
+  expect(response.status).toEqual(200);
 });
 
+test("Make sure GET /api/users", async () => {});
 
 // write a test skeleton with a descriptive test name ("GET /api/users" could be a starting point)
 // run tests to make sure the skeleton passes on its own
