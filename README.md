@@ -31,16 +31,16 @@ Some questions that might help guide your exploration:
 - What endpoints/operations does the API support?
 - What's the purpose of the `vitest.config.js` file?
 
-### 🎫 Ticket 2 - Setup
+### 🎫 Ticket 2 - Setup✅
 
 Familiarising yourself with an existing codebase is an important skill to practise as a developer. Your manager has now tasked you with the following:
 
-- Install the project's existing dependencies (listed in the `package.json`)
+- Install the project's existing dependencies (listed in the `package.json`)✅
   - Why: In this case, the application code uses third party packages, which are listed in the `package.json`. As part of running the tests, the application code will also run (since we'll be testing it) and the application code needs these dependencies to be installed first.
-- Install Vitest and Supertest both as dev dependencies.
+- Install Vitest and Supertest both as dev dependencies.✅
   - Why: Vitest and Supertest are third party packages that make it easier to write tests and test HTTP respectively. However, both are only needed during testing and don't need to be included in the final application. Hence, during installation, you can specify that they should be installed as development-only dependencies.
   - If you're stuck, try to search online for any "getting started" guidance or examples in their respective documentation on how to install them as dev dependencies.
-- Set up a PostgreSQL database so that you've got a connection string to connect with. (For simplicity, you can choose to do this using ElephantSQL or similar providers.) Then create a `.env` file at the root of this repository and within it add a line: DATABASE_URL=REPLACE_ME_WITH_YOUR_CONNECTION_STRING
+- Set up a PostgreSQL database so that you've got a connection string to connect with. (For simplicity, you can choose to do this using ElephantSQL or similar providers.) Then create a `.env` file at the root of this repository and within it add a line: DATABASE_URL=REPLACE_ME_WITH_YOUR_CONNECTION_STRING✅
 
   - Why: The API tests you'll write will send real requests to the API. When the API receives those requests, the code within the request handler will try to speak to a database (since this API uses a database for persistence). Hence, you need a database for testing purposes.
   - One of the downsides to using an online database provider for a test database is that their service may break occasionally, which would cause these API tests to fail for the wrong reasons (since the API can't connect to the database during the tests). There are alternative approaches that wouldn't involve connecting to a database server across the internet. These approaches can be more reliable for testing, but would require more setup and tooling. So for now, we're keeping things simpler. (If your database does go down during your tests, create another one or use a different provider.)
@@ -67,7 +67,9 @@ app.get("/user", function (req, res) {
 
 describe("GET /users", function () {
   it("responds with json", async function () {
-    const response = await request(app).get("/users").set("Accept", "application/json");
+    const response = await request(app)
+      .get("/users")
+      .set("Accept", "application/json");
     expect(response.headers["Content-Type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
     expect(response.body.email).toEqual("foo@bar.com");
